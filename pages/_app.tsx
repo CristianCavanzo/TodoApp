@@ -1,12 +1,14 @@
 import type { AppProps } from 'next/app';
 import { Montserrat } from 'next/font/google';
-const montserrat = Montserrat({
+import '@styles/global.css';
+
+export const montserrat = Montserrat({
 	weight: 'variable',
 	subsets: ['latin'],
 });
 export default function MyApp({ Component, pageProps }: AppProps) {
 	return (
-		<div className={montserrat.className}>
+		<div className={`${montserrat.className} layout`}>
 			<Component {...pageProps} />
 		</div>
 	);
