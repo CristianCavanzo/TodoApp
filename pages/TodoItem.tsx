@@ -1,9 +1,13 @@
 import React from 'react';
-const TodoItem = () => {
+interface Props {
+	text: string;
+	completed: boolean;
+}
+const TodoItem: React.FC<Props> = ({ text }) => {
 	return (
 		<li>
 			<span>V</span>
-			<p>Llorar con la Llorona</p>
+			<p>{text}</p>
 			<span>X</span>
 		</li>
 	);

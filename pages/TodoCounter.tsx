@@ -1,5 +1,13 @@
 import React from 'react';
-const TodoCounter = () => {
-	return <h1>Has completado 3 de 5 TODOS</h1>;
+interface Props {
+	totalTodos: number;
+	completed: number;
+}
+const TodoCounter: React.FC<Props> = ({ totalTodos, completed }) => {
+	return (
+		<h1>
+			Has completado {completed} de {totalTodos} TODOS
+		</h1>
+	);
 };
 export { TodoCounter };
