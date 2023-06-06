@@ -1,7 +1,30 @@
 {
   "dependencies": {
+    "@types/eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "next": "^13.4.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+  },
+  "name": "curso_basico_de_react",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/eslint-config-prettier": "^6.11.0",
+    "@types/node": "20.2.5",
+    "@types/react": "18.2.8",
+    "eslint-config-next": "^13.4.4",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "prettier-eslint": "^15.0.1"
   }
 }
