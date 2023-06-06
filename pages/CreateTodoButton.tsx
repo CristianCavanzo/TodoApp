@@ -13,6 +13,11 @@ const Button = styled.button`
 	font-size: 22px;
 `;
 const CreateTodoButton = () => {
-	return <Button className={montserrat.className}>+</Button>;
+	const handleCreate = () => {};
+	return (
+		<Button onClick={handleCreate} className={montserrat.className}>
+			+
+		</Button>
+	);
 };
 export { CreateTodoButton };

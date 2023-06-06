@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { montserrat } from './_app';
 
@@ -12,7 +12,20 @@ const Input = styled.input`
 	text-align: center;
 	font-weight: 500;
 `;
-const TodoSearch = () => {
-	return <Input type="text" placeholder="Cortar cebolla" className={montserrat.className} />;
+interface Props {
+	searchValue: string;
+	// eslint-disable-next-line
+	setSearchValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+const TodoSearch: FC<Props> = ({ searchValue, setSearchValue }) => {
+	return (
+		<Input
+			onInput={setSearchValue}
+			type="text"
+			value={searchValue}
+			placeholder="Cortar cebolla"
+			className={montserrat.className}
+		/>
+	);
 };
 export { TodoSearch };

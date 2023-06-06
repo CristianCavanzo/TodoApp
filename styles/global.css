@@ -13,3 +13,14 @@ body {
 	row-gap: 20px;
 	padding: 40px;
 }
+body .list_completed {
+	cursor: initial;
+	background: #f1f3f3;
+}
+.list_completed .todoItem_completed {
+	color: green;
+}
+body .list_completed p {
+	text-decoration: line-through;
+	opacity: 0.5;
+}
