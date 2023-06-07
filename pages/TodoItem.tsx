@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { CompleteIcon } from './CompleteIcon';
+import { DeleteIcon } from './DeleteIcon';
 const List = styled.li`
 	display: flex;
 	background: #fff;
@@ -39,25 +41,26 @@ const TodoItem: React.FC<Props> = ({ text, completed, id, onComplete, onDelete }
 	};
 	return (
 		<List className={`${completed && 'list_completed'}`}>
-			<span
-				className="todoItem_completed"
-				tabIndex={0}
-				role="button"
+			<CompleteIcon
 				onClick={handleComplete}
 				onKeyDown={handleComplete}
-			>
+				onFocus={() => console.log('hola')}
+				width={16}
+				height={16}
+				color="blue"
+			/>
+			<span className="todoItem_completed" tabIndex={0} role="button">
 				V
 			</span>
 			<p>{text}</p>
-			<span
-				tabIndex={0}
-				role="button"
+			<DeleteIcon
 				onClick={handleDelete}
 				onKeyDown={handleDelete}
 				className="todoItem_delete"
-			>
-				X
-			</span>
+				width={16}
+				height={16}
+				color="blue"
+			/>
 		</List>
 	);
 };
