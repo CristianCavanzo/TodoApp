@@ -17,10 +17,17 @@ body .list_completed {
 	cursor: initial;
 	background: #f1f3f3;
 }
-.list_completed .todoItem_completed {
-	color: green;
+.list_completed .icon_completed svg,
+.icon_completed:hover svg {
+	fill: green;
 }
 body .list_completed p {
 	text-decoration: line-through;
 	opacity: 0.5;
+}
+.cursor_pointer {
+	cursor: pointer;
+}
+.icon_delete:hover svg {
+	fill: red;
 }

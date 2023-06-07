@@ -47,7 +47,7 @@ const TodoCounter: React.FC<Props> = ({ totalTodos, completed }) => {
 		month: 'long',
 		weekday: 'long',
 	}).format(new Date());
-	const percentage = Number(((completed / totalTodos) * 100).toFixed(2));
+	const percentage = Number(((completed / totalTodos) * 100).toFixed(2)) || 0;
 	return (
 		<TodoCounterComponent>
 			<div className="todoCounter_top">
@@ -58,7 +58,7 @@ const TodoCounter: React.FC<Props> = ({ totalTodos, completed }) => {
 				<p className="todoCounter_bottom--task todoCounter_text--secondary">{`${completed}/${totalTodos} tareas`}</p>
 				<div className="todoCounter_bottom--percentage">{`${percentage}%`}</div>
 				<div className="todoCounter_bottom--percentageContainer">
-					<Percentage $width={percentage} />
+					<Percentage $width={percentage || -2} />
 				</div>
 			</div>
 		</TodoCounterComponent>

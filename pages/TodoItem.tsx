@@ -14,7 +14,7 @@ const List = styled.li`
 	span {
 		font-weight: bold;
 	}
-	.todoItem_delete {
+	.icon_delete {
 		position: absolute;
 		top: -8px;
 		right: 32px;
@@ -44,22 +44,19 @@ const TodoItem: React.FC<Props> = ({ text, completed, id, onComplete, onDelete }
 			<CompleteIcon
 				onClick={handleComplete}
 				onKeyDown={handleComplete}
-				onFocus={() => console.log('hola')}
 				width={16}
 				height={16}
-				color="blue"
+				className="icon_completed"
+				color="#737572"
 			/>
-			<span className="todoItem_completed" tabIndex={0} role="button">
-				V
-			</span>
 			<p>{text}</p>
 			<DeleteIcon
 				onClick={handleDelete}
 				onKeyDown={handleDelete}
-				className="todoItem_delete"
+				className="icon_delete"
 				width={16}
 				height={16}
-				color="blue"
+				color="#737572"
 			/>
 		</List>
 	);

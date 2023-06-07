@@ -10,9 +10,8 @@ const TodoIcon: FC<PropsIcon> = ({
 	children,
 	...other
 }) => {
-	console.log(other);
 	return (
-		<span className={className} {...other}>
+		<span tabIndex={0} role="button" className={`${className} cursor_pointer`} {...other}>
 			<svg viewBox={viewBox} width={width} height={height} fill={color}>
 				{children}
 			</svg>
