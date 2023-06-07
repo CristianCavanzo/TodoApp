@@ -18,59 +18,58 @@ interface Todos {
 // ];
 // localStorage.setItem('TODOS_V1', JSON.stringify(defaultTodos))
 
-const Home = () => {
-	const nameTodos = 'TODOS_V1';
-	// localStorage.getItem('TODOS_V1', defaultTodos)
-	// localStorage.removeItem('TODOS_V1');
-
-	const [state, setState] = useState({
-		search: '',
-		todos: [],
-	});
+function useLocalStorage<T>(itenName: string, initialValue: T) {
+	const [item, setItem] = useState<T>(initialValue);
 	useEffect(() => {
 		// eslint-disable-next-line no-undef
 		if (globalThis.window) {
-			let parsedTodos: Todos[] = JSON.parse(localStorage.getItem(nameTodos));
-			if (!parsedTodos) {
-				localStorage.setItem('TODOS_V1', JSON.stringify([]));
-				parsedTodos = [];
+			let parsedItem: T = JSON.parse(localStorage.getItem(itenName));
+			if (!parsedItem) {
+				localStorage.setItem(itenName, JSON.stringify([]));
+				parsedItem = initialValue;
 			}
-			setState({
-				...state,
-				todos: parsedTodos,
-			});
+			setItem(parsedItem);
 		}
 	}, []);
 
-	const saveTodos = (newTodos: Todos[]) => {
-		localStorage.setItem(nameTodos, JSON.stringify(newTodos));
-		setState({ ...state, todos: newTodos });
+	const saveItem = (newItem: T) => {
+		localStorage.setItem(itenName, JSON.stringify(newItem));
+		setItem(newItem);
 	};
+
+	return { item, saveItem };
+}
+
+const Home = () => {
+	const nameTodos = 'TODOS_V1';
+	const initialValue: Todos[] = [];
+	// localStorage.getItem('TODOS_V1', defaultTodos)
+	// localStorage.removeItem('TODOS_V1');
+	const { item: todos, saveItem: saveTodos } = useLocalStorage(nameTodos, initialValue);
+
+	const [search, setSearch] = useState('');
 
 	const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value;
-		setState({
-			...state,
-			search: value,
-		});
+		setSearch(value);
 	};
 
-	const completedTodos = state.todos.filter((item) => item.completed).length;
-	const totalTodos = state.todos.length;
+	const completedTodos = todos.filter((item) => item.completed).length;
+	const totalTodos = todos.length;
 
-	const searchedTodos = state.todos.filter((item) => {
+	const searchedTodos = todos.filter((item) => {
 		const text = item.text.toLowerCase();
-		const search = state.search.toLowerCase();
-		return text.includes(search);
+		const searchLower = search.toLowerCase();
+		return text.includes(searchLower);
 	});
 
 	const completeTodo = (id: number) => {
-		const newTodos = [...state.todos];
+		const newTodos = [...todos];
 		newTodos[id].completed = true;
 		saveTodos(newTodos);
 	};
 	const deleteTodo = (id: number) => {
-		const newTodos = [...state.todos];
+		const newTodos = [...todos];
 		newTodos.splice(id, 1);
 		saveTodos(newTodos);
 	};
@@ -78,7 +77,7 @@ const Home = () => {
 	return (
 		<>
 			<TodoHead />
-			<TodoSearch searchValue={state.search} setSearchValue={handleSearch} />
+			<TodoSearch searchValue={search} setSearchValue={handleSearch} />
 			<TodoCounter totalTodos={totalTodos} completed={completedTodos} />
 			<TodoList>
 				{searchedTodos.map((todo, key) => (
