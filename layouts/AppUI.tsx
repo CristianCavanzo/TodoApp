@@ -12,6 +12,8 @@ interface Props {
 	totalTodos: number;
 	completedTodos: number;
 	searchedTodos: Todos[];
+	loading: boolean;
+	error: boolean;
 	/* eslint-disable no-unused-vars */
 	handleSearch: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	completeTodo: (id: number) => void;
@@ -27,12 +29,17 @@ const AppUI: FC<Props> = ({
 	searchedTodos,
 	completeTodo,
 	deleteTodo,
+	loading,
+	error,
 }) => {
 	return (
 		<>
 			<TodoHead />
 			<TodoSearch searchValue={search} setSearchValue={handleSearch} />
 			<TodoCounter totalTodos={totalTodos} completed={completedTodos} />
+			{loading && 'Estamos cargando..'}
+			{error && 'Ay no'}
+			{!loading && !searchedTodos.length && 'Crea algún TODO'}
 			<TodoList>
 				{searchedTodos.map((todo, key) => (
 					<TodoItem

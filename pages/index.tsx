@@ -16,7 +16,12 @@ const Home = () => {
 	const initialValue: Todos[] = [];
 	// localStorage.getItem('TODOS_V1', defaultTodos)
 	// localStorage.removeItem('TODOS_V1');
-	const { item: todos, saveItem: saveTodos } = useLocalStorage(nameTodos, initialValue);
+	const {
+		item: todos,
+		saveItem: saveTodos,
+		loading,
+		error,
+	} = useLocalStorage(nameTodos, initialValue);
 
 	const [search, setSearch] = useState('');
 
@@ -54,6 +59,8 @@ const Home = () => {
 			searchedTodos={searchedTodos}
 			completeTodo={completeTodo}
 			deleteTodo={deleteTodo}
+			loading={loading}
+			error={error}
 		/>
 	);
 };
