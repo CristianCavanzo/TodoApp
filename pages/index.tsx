@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { TodoCounter } from './TodoCounter';
-import { TodoSearch } from './TodoSearch';
-import { TodoList } from './TodoList';
-import { CreateTodoButton } from './CreateTodoButton';
-import { TodoItem } from './TodoItem';
-import { TodoHead } from './TodoHead';
+import React, { useState } from 'react';
+import { TodoCounter } from '@components/TodoCounter';
+import { TodoSearch } from '@components/TodoSearch';
+import { TodoList } from '@components/TodoList';
+import { CreateTodoButton } from '@components/CreateTodoButton';
+import { TodoItem } from '@components/TodoItem';
+import { TodoHead } from '@components/TodoHead';
+import { useLocalStorage } from '@hooks/useLocalStorage';
 
 interface Todos {
 	text: string;
@@ -17,28 +18,6 @@ interface Todos {
 // 	{ text: 'LALALA', completed: false },
 // ];
 // localStorage.setItem('TODOS_V1', JSON.stringify(defaultTodos))
-
-function useLocalStorage<T>(itenName: string, initialValue: T) {
-	const [item, setItem] = useState<T>(initialValue);
-	useEffect(() => {
-		// eslint-disable-next-line no-undef
-		if (globalThis.window) {
-			let parsedItem: T = JSON.parse(localStorage.getItem(itenName));
-			if (!parsedItem) {
-				localStorage.setItem(itenName, JSON.stringify([]));
-				parsedItem = initialValue;
-			}
-			setItem(parsedItem);
-		}
-	}, []);
-
-	const saveItem = (newItem: T) => {
-		localStorage.setItem(itenName, JSON.stringify(newItem));
-		setItem(newItem);
-	};
-
-	return { item, saveItem };
-}
 
 const Home = () => {
 	const nameTodos = 'TODOS_V1';
