@@ -1,16 +1,8 @@
 import React, { useState } from 'react';
-import { TodoCounter } from '@components/TodoCounter';
-import { TodoSearch } from '@components/TodoSearch';
-import { TodoList } from '@components/TodoList';
-import { CreateTodoButton } from '@components/CreateTodoButton';
-import { TodoItem } from '@components/TodoItem';
-import { TodoHead } from '@components/TodoHead';
 import { useLocalStorage } from '@hooks/useLocalStorage';
+import { AppUI } from '@layouts/AppUI';
+import { Todos } from '@types';
 
-interface Todos {
-	text: string;
-	completed: boolean;
-}
 // const defaultTodos = [
 // 	{ text: 'Cortar cebolla', completed: true },
 // 	{ text: 'Tomar el curso de intro a React', completed: false },
@@ -54,24 +46,15 @@ const Home = () => {
 	};
 
 	return (
-		<>
-			<TodoHead />
-			<TodoSearch searchValue={search} setSearchValue={handleSearch} />
-			<TodoCounter totalTodos={totalTodos} completed={completedTodos} />
-			<TodoList>
-				{searchedTodos.map((todo, key) => (
-					<TodoItem
-						text={todo.text}
-						completed={todo.completed}
-						key={`TodoItem_${key}`}
-						id={key}
-						onComplete={completeTodo}
-						onDelete={deleteTodo}
-					/>
-				))}
-			</TodoList>
-			<CreateTodoButton />
-		</>
+		<AppUI
+			search={search}
+			handleSearch={handleSearch}
+			totalTodos={totalTodos}
+			completedTodos={completedTodos}
+			searchedTodos={searchedTodos}
+			completeTodo={completeTodo}
+			deleteTodo={deleteTodo}
+		/>
 	);
 };
 

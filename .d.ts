@@ -10,4 +10,7 @@ export interface PropsIcon extends DOMAttributes<HTMLSpanElement> {
 	children: ReactNode;
 }
 
-const prueba: DOMAttributes<'span'> = onclick;
+export interface Todos {
+	text: string;
+	completed: boolean;
+}

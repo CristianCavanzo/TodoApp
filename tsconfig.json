@@ -19,6 +19,7 @@
 			"@icon/*": ["./public/icon*"],
 			"@types": ["./.d.ts"],
 			"@components/*": ["./components/*"],
+			"@layouts/*": ["./layouts/*"],
 			"@font": ["./pages/_app.tsx"],
 			"@hooks/*": ["./hooks/*"]
 		}
