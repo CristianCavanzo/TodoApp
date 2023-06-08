@@ -8,10 +8,13 @@ interface Context {
 	searchedTodos: Todos[];
 	loading: boolean;
 	error: boolean;
+	openModal: boolean;
 	/* eslint-disable no-unused-vars */
 	handleSearch: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	completeTodo: (id: number) => void;
 	deleteTodo: (id: number) => void;
+	handleModal: () => void;
+	createItem: (newItem: unknown) => void;
 	/* eslint-enable no-unused-vars */
 }
 
@@ -22,11 +25,13 @@ const TodoContext = createContext<Context>({
 	searchedTodos: [],
 	loading: true,
 	error: false,
+	openModal: false,
 	/* eslint-disable no-unused-vars */
 	handleSearch: (event: React.ChangeEvent<HTMLInputElement>) => {},
 	completeTodo: (id: number) => {},
 	deleteTodo: (id: number) => {},
-
+	handleModal: () => {},
+	createItem: (newItem: unknown) => {},
 	/* eslint-enable no-unused-vars */
 });
 
@@ -40,9 +45,15 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
 		saveItem: saveTodos,
 		loading,
 		error,
+		createItem,
 	} = useLocalStorage(nameTodos, initialValue);
 
 	const [search, setSearch] = useState('');
+	const [openModal, setOpenModal] = useState(false);
+
+	const handleModal = () => {
+		setOpenModal(!openModal);
+	};
 
 	const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value;
@@ -81,6 +92,9 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
 				completeTodo,
 				deleteTodo,
 				search,
+				openModal,
+				handleModal,
+				createItem,
 			}}
 		>
 			{children}

@@ -12,6 +12,7 @@ body {
 	margin: 0 auto;
 	row-gap: 20px;
 	padding: 40px;
+	position: relative;
 }
 body .list_completed {
 	cursor: initial;
@@ -30,4 +31,15 @@ body .list_completed p {
 }
 .icon_delete:hover svg {
 	fill: red;
+}
+#modal:has(div) {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: #000000a3;
+	display: grid;
+	align-content: flex-end;
+	justify-content: center;
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-export function useLocalStorage<T>(itenName: string, initialValue: T) {
-	const [item, setItem] = useState<T>(initialValue);
+export function useLocalStorage<T>(itenName: string, initialValue: T[]) {
+	const [item, setItem] = useState(initialValue);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
 	useEffect(() => {
@@ -11,7 +11,7 @@ export function useLocalStorage<T>(itenName: string, initialValue: T) {
 				const random = Math.floor(Math.random() * 10);
 				const time = Number(`1${random}00`);
 				setTimeout(() => {
-					let parsedItem: T = JSON.parse(localStorage.getItem(itenName));
+					let parsedItem: T[] = JSON.parse(localStorage.getItem(itenName));
 					if (!parsedItem) {
 						localStorage.setItem(itenName, JSON.stringify([]));
 						parsedItem = initialValue;
@@ -26,10 +26,16 @@ export function useLocalStorage<T>(itenName: string, initialValue: T) {
 		}
 	}, []);
 
-	const saveItem = (newItem: T) => {
+	const saveItem = (newItem: T[]) => {
 		localStorage.setItem(itenName, JSON.stringify(newItem));
 		setItem(newItem);
 	};
 
-	return { item, saveItem, loading, error };
+	const createItem = (newItem: T) => {
+		const parsedItem: T[] = JSON.parse(localStorage.getItem(itenName));
+		parsedItem.push(newItem);
+		saveItem(parsedItem);
+	};
+
+	return { item, saveItem, loading, error, createItem };
 }

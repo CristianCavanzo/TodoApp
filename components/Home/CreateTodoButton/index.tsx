@@ -11,11 +11,19 @@ const Button = styled.button`
 	color: #fff;
 	font-weight: bold;
 	font-size: 22px;
+	position: absolute;
+	bottom: -20px;
+	right: 40px;
+	transition: rotate 150ms ease-out;
+	cursor: pointer;
+	:hover {
+		transition: rotate 100ms ease-in;
+		rotate: 45deg;
+	}
 `;
-const CreateTodoButton = () => {
-	const handleCreate = () => {};
+const CreateTodoButton = ({ openModal }: { openModal: () => void }) => {
 	return (
-		<Button onClick={handleCreate} className={montserrat.className}>
+		<Button onClick={openModal} className={montserrat.className}>
 			+
 		</Button>
 	);

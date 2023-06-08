@@ -8,8 +8,11 @@ export const montserrat = Montserrat({
 });
 export default function MyApp({ Component, pageProps }: AppProps) {
 	return (
-		<div className={`${montserrat.className} layout`}>
-			<Component {...pageProps} />
-		</div>
+		<>
+			<div className={`${montserrat.className} layout`}>
+				<Component {...pageProps} />
+			</div>
+			<div id="modal"></div>
+		</>
 	);
 }
