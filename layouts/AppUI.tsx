@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment } from 'react';
 import { TodoCounter } from '@components/Home/TodoCounter';
 import { TodoSearch } from '@components/Home/TodoSearch';
 import { TodoList } from '@components/Home/TodoList';
@@ -6,6 +6,9 @@ import { CreateTodoButton } from '@components/Home/CreateTodoButton';
 import { TodoItem } from '@components/Home/TodoItem';
 import { TodoHead } from '@components/Home/TodoHead';
 import { Todos } from '@types';
+import { TodoLoading } from '@components/Home/TodoLoading';
+import { TodoError } from '@components/Home/TodoError';
+import { TodoEmpty } from '@components/Home/TodoEmpty';
 
 interface Props {
 	search: string;
@@ -37,9 +40,15 @@ const AppUI: FC<Props> = ({
 			<TodoHead />
 			<TodoSearch searchValue={search} setSearchValue={handleSearch} />
 			<TodoCounter totalTodos={totalTodos} completed={completedTodos} />
-			{loading && 'Estamos cargando..'}
-			{error && 'Ay no'}
-			{!loading && !searchedTodos.length && 'Crea algún TODO'}
+			{loading && (
+				<>
+					<TodoLoading />
+					<TodoLoading />
+					<TodoLoading />
+				</>
+			)}
+			{error && <TodoError />}
+			{!loading && !searchedTodos.length && <TodoEmpty />}
 			<TodoList>
 				{searchedTodos.map((todo, key) => (
 					<TodoItem

@@ -9,7 +9,7 @@ export function useLocalStorage<T>(itenName: string, initialValue: T) {
 		if (globalThis.window) {
 			try {
 				const random = Math.floor(Math.random() * 10);
-				const time = Number(`0${random}00`);
+				const time = Number(`1${random}00`);
 				setTimeout(() => {
 					let parsedItem: T = JSON.parse(localStorage.getItem(itenName));
 					if (!parsedItem) {
