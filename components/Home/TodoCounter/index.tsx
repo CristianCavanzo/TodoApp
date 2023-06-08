@@ -1,4 +1,5 @@
-import React from 'react';
+import { TodoContext } from '@context/TodoContext';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 const TodoCounterComponent = styled.div`
 	background: #000;
@@ -37,17 +38,14 @@ const Percentage = styled.div<{ $width?: number }>`
 	margin-right: -1px;
 `;
 
-interface Props {
-	totalTodos: number;
-	completed: number;
-}
-const TodoCounter: React.FC<Props> = ({ totalTodos, completed }) => {
+const TodoCounter = () => {
+	const { completedTodos, totalTodos } = useContext(TodoContext);
 	const formatDay = new Intl.DateTimeFormat('es-CO', {
 		day: 'numeric',
 		month: 'long',
 		weekday: 'long',
 	}).format(new Date());
-	const percentage = Number(((completed / totalTodos) * 100).toFixed(2)) || 0;
+	const percentage = Number(((completedTodos / totalTodos) * 100).toFixed(2)) || 0;
 	return (
 		<TodoCounterComponent>
 			<div className="todoCounter_top">
@@ -55,7 +53,7 @@ const TodoCounter: React.FC<Props> = ({ totalTodos, completed }) => {
 				<p className="todoCounter_progress">Progreso del dia</p>
 			</div>
 			<div className="todoCounter_bottom">
-				<p className="todoCounter_bottom--task todoCounter_text--secondary">{`${completed}/${totalTodos} tareas`}</p>
+				<p className="todoCounter_bottom--task todoCounter_text--secondary">{`${completedTodos}/${totalTodos} tareas`}</p>
 				<div className="todoCounter_bottom--percentage">{`${percentage}%`}</div>
 				<div className="todoCounter_bottom--percentageContainer">
 					<Percentage $width={percentage || -2} />

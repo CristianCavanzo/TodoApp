@@ -20,6 +20,7 @@
 			"@types": ["./.d.ts"],
 			"@components/*": ["./components/*"],
 			"@layouts/*": ["./layouts/*"],
+			"@context/*": ["./context/*"],
 			"@font": ["./pages/_app.tsx"],
 			"@hooks/*": ["./hooks/*"]
 		}

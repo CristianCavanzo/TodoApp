@@ -1,6 +1,7 @@
-import React, { FC } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { montserrat } from '@font';
+import { TodoContext } from '@context/TodoContext';
 
 const Input = styled.input`
 	width: 100%;
@@ -12,17 +13,14 @@ const Input = styled.input`
 	text-align: center;
 	font-weight: 500;
 `;
-interface Props {
-	searchValue: string;
-	// eslint-disable-next-line
-	setSearchValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
-const TodoSearch: FC<Props> = ({ searchValue, setSearchValue }) => {
+
+const TodoSearch = () => {
+	const { handleSearch, search } = useContext(TodoContext);
 	return (
 		<Input
-			onInput={setSearchValue}
+			onInput={handleSearch}
 			type="text"
-			value={searchValue}
+			value={search}
 			placeholder="Cortar cebolla"
 			className={montserrat.className}
 		/>
