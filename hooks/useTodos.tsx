@@ -1,6 +1,6 @@
 import { useLocalStorage } from '@hooks/useLocalStorage';
 import { Todos } from '@types';
-import React, { ReactNode, createContext, useState } from 'react';
+import React, { useState } from 'react';
 interface Context {
 	search: string;
 	totalTodos: number;
@@ -18,24 +18,7 @@ interface Context {
 	/* eslint-enable no-unused-vars */
 }
 
-const TodoContext = createContext<Context>({
-	search: '',
-	totalTodos: 0,
-	completedTodos: 0,
-	searchedTodos: [],
-	loading: true,
-	error: false,
-	openModal: false,
-	/* eslint-disable no-unused-vars */
-	handleSearch: (event: React.ChangeEvent<HTMLInputElement>) => {},
-	completeTodo: (id: number) => {},
-	deleteTodo: (id: number) => {},
-	handleModal: () => {},
-	createItem: (newItem: unknown) => {},
-	/* eslint-enable no-unused-vars */
-});
-
-const TodoProvider = ({ children }: { children: ReactNode }) => {
+const useTodos = (): Context => {
 	const nameTodos = 'TODOS_V1';
 	const initialValue: Todos[] = [];
 
@@ -79,26 +62,20 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
 		saveTodos(newTodos);
 	};
 
-	return (
-		<TodoContext.Provider
-			value={{
-				loading,
-				error,
-				handleSearch,
-				completedTodos,
-				totalTodos,
-				searchedTodos,
-				completeTodo,
-				deleteTodo,
-				search,
-				openModal,
-				handleModal,
-				createItem,
-			}}
-		>
-			{children}
-		</TodoContext.Provider>
-	);
+	return {
+		loading,
+		error,
+		handleSearch,
+		completedTodos,
+		totalTodos,
+		searchedTodos,
+		completeTodo,
+		deleteTodo,
+		search,
+		openModal,
+		handleModal,
+		createItem,
+	};
 };
 
-export { TodoContext, TodoProvider };
+export { useTodos };

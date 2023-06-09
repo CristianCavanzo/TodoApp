@@ -1,7 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { montserrat } from '@font';
 import styled from 'styled-components';
-import { TodoContext } from '@context/TodoContext';
 import { Todos } from '@types';
 
 const CreateTodo = styled.form`
@@ -38,8 +37,7 @@ const CreateTodo = styled.form`
 	}
 `;
 
-const TodoForm = () => {
-	const { handleModal, createItem } = useContext(TodoContext);
+const TodoForm = ({ handleModal, createItem }) => {
 	const [value, setValue] = useState('');
 
 	const createTODO = (e: React.FormEvent<HTMLFormElement>) => {
