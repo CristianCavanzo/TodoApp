@@ -11,9 +11,12 @@ const Input = styled.input`
 	padding: 12px 22px;
 	text-align: center;
 	font-weight: 500;
+	:disabled {
+		opacity: 0.5;
+	}
 `;
 
-const TodoSearch = ({ handleSearch, search }) => {
+const TodoSearch = ({ handleSearch, search, loading }) => {
 	return (
 		<Input
 			onInput={handleSearch}
@@ -21,6 +24,7 @@ const TodoSearch = ({ handleSearch, search }) => {
 			value={search}
 			placeholder="Cortar cebolla"
 			className={montserrat.className}
+			disabled={loading}
 		/>
 	);
 };

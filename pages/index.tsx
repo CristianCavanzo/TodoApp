@@ -31,9 +31,11 @@ const Home = () => {
 
 	return (
 		<>
-			<TodoHeader>
-				<TodoHead />
+			<TodoHead />
+			<TodoHeader loading={loading}>
+				{/* @ts-ignore */}
 				<TodoSearch handleSearch={handleSearch} search={search} />
+				{/* @ts-ignore */}
 				<TodoCounter completedTodos={completedTodos} totalTodos={totalTodos} />
 			</TodoHeader>
 
@@ -52,16 +54,6 @@ const Home = () => {
 				)}
 				onEmpty={() => <TodoEmpty />}
 				onEmptySearchResults={(name: string) => <p>Empieza a crear un TODO para {name} </p>}
-				// render={(todo, key) => (
-				// 	<TodoItem
-				// 		text={todo.text}
-				// 		completed={todo.completed}
-				// 		key={`TodoItem_${key}`}
-				// 		id={key}
-				// 		onComplete={completeTodo}
-				// 		onDelete={deleteTodo}
-				// 	/>
-				// )}
 			>
 				{(todo: Todos, key: number) => (
 					<TodoItem

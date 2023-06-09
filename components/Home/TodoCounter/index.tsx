@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 const TodoCounterComponent = styled.div`
+	&.TodoCounterComponent__loading {
+		opacity: 0.5;
+	}
 	background: #000;
 	border-radius: 12px;
 	color: #fff;
@@ -8,11 +11,13 @@ const TodoCounterComponent = styled.div`
 	display: flex;
 	flex-direction: column;
 	row-gap: 40px;
+	.TodoCounterComponent__loading {
+		background: blue;
+	}
 	.todoCounter_text--secondary {
 		color: #969696;
 		font-size: 13px;
 	}
-
 	.todoCounter_progress {
 		font-size: 20px;
 		font-weight: 600;
@@ -37,7 +42,7 @@ const Percentage = styled.div<{ $width?: number }>`
 	margin-right: -1px;
 `;
 
-const TodoCounter = ({ completedTodos, totalTodos }) => {
+const TodoCounter = ({ completedTodos, totalTodos, loading }) => {
 	const formatDay = new Intl.DateTimeFormat('es-CO', {
 		day: 'numeric',
 		month: 'long',
@@ -45,7 +50,7 @@ const TodoCounter = ({ completedTodos, totalTodos }) => {
 	}).format(new Date());
 	const percentage = Number(((completedTodos / totalTodos) * 100).toFixed(2)) || 0;
 	return (
-		<TodoCounterComponent>
+		<TodoCounterComponent className={`${loading && 'TodoCounterComponent__loading'}`}>
 			<div className="todoCounter_top">
 				<p className="todoCounter_day todoCounter_text--secondary">{formatDay}</p>
 				<p className="todoCounter_progress">Progreso del dia</p>
