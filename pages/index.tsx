@@ -12,6 +12,7 @@ import { Modal } from '@components/Modal';
 import { TodoForm } from '@components/Home/TodoForm';
 import { TodoHeader } from '@components/Home/TodoHeader';
 import { useTodos } from '@hooks/useTodos';
+import { Todos } from '@types';
 const Home = () => {
 	const {
 		error,
@@ -40,6 +41,7 @@ const Home = () => {
 				error={error}
 				loading={loading}
 				searchedTodos={searchedTodos}
+				searchText={search}
 				onError={() => <TodoError />}
 				onLoading={() => (
 					<>
@@ -49,7 +51,19 @@ const Home = () => {
 					</>
 				)}
 				onEmpty={() => <TodoEmpty />}
-				render={(todo, key) => (
+				onEmptySearchResults={(name: string) => <p>Empieza a crear un TODO para {name} </p>}
+				// render={(todo, key) => (
+				// 	<TodoItem
+				// 		text={todo.text}
+				// 		completed={todo.completed}
+				// 		key={`TodoItem_${key}`}
+				// 		id={key}
+				// 		onComplete={completeTodo}
+				// 		onDelete={deleteTodo}
+				// 	/>
+				// )}
+			>
+				{(todo: Todos, key: number) => (
 					<TodoItem
 						text={todo.text}
 						completed={todo.completed}
@@ -59,7 +73,7 @@ const Home = () => {
 						onDelete={deleteTodo}
 					/>
 				)}
-			/>
+			</TodoList>
 
 			<CreateTodoButton openModal={handleModal} />
 			{openModal && (
