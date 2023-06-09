@@ -11,16 +11,29 @@ import { TodoEmpty } from '@components/Home/TodoEmpty';
 import { TodoContext } from '@context/TodoContext';
 import { Modal } from '@components/Modal';
 import { TodoForm } from '@components/Home/TodoForm';
+import { TodoHeader } from '@components/Home/TodoHeader';
 
 const AppUI = () => {
-	const { error, loading, searchedTodos, completeTodo, deleteTodo, openModal, handleModal } =
-		useContext(TodoContext);
+	const {
+		error,
+		loading,
+		searchedTodos,
+		completeTodo,
+		deleteTodo,
+		openModal,
+		handleModal,
+		handleSearch,
+		search,
+		completedTodos,
+		totalTodos,
+	} = useContext(TodoContext);
 	return (
 		<>
-			<TodoHead />
-			<TodoSearch />
-			<TodoCounter />
-
+			<TodoHeader>
+				<TodoHead />
+				<TodoSearch handleSearch={handleSearch} search={search} />
+				<TodoCounter completedTodos={completedTodos} totalTodos={totalTodos} />
+			</TodoHeader>
 			{loading && (
 				<>
 					<TodoLoading />

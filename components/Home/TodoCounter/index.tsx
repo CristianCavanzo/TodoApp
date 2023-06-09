@@ -1,5 +1,4 @@
-import { TodoContext } from '@context/TodoContext';
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 const TodoCounterComponent = styled.div`
 	background: #000;
@@ -38,8 +37,7 @@ const Percentage = styled.div<{ $width?: number }>`
 	margin-right: -1px;
 `;
 
-const TodoCounter = () => {
-	const { completedTodos, totalTodos } = useContext(TodoContext);
+const TodoCounter = ({ completedTodos, totalTodos }) => {
 	const formatDay = new Intl.DateTimeFormat('es-CO', {
 		day: 'numeric',
 		month: 'long',

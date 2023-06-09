@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { montserrat } from '@font';
-import { TodoContext } from '@context/TodoContext';
 
 const Input = styled.input`
 	width: 100%;
@@ -14,8 +13,7 @@ const Input = styled.input`
 	font-weight: 500;
 `;
 
-const TodoSearch = () => {
-	const { handleSearch, search } = useContext(TodoContext);
+const TodoSearch = ({ handleSearch, search }) => {
 	return (
 		<Input
 			onInput={handleSearch}
