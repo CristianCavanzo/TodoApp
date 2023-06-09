@@ -38,8 +38,7 @@ const TodoContext = createContext<Context>({
 const TodoProvider = ({ children }: { children: ReactNode }) => {
 	const nameTodos = 'TODOS_V1';
 	const initialValue: Todos[] = [];
-	// localStorage.getItem('TODOS_V1', defaultTodos)
-	// localStorage.removeItem('TODOS_V1');
+
 	const {
 		item: todos,
 		saveItem: saveTodos,
