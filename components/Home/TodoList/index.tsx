@@ -1,5 +1,5 @@
 import { Todos } from '@types';
-import React, { FC, ReactNode } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 const TodoListComponent = styled.ul`
 	display: grid;
@@ -40,7 +40,7 @@ const TodoList: FC<Props> = ({
 			{loading && onLoading()}
 			{!searchedTodos.length && searchText && onEmptySearchResults(searchText)}
 			{!loading && !searchText && !searchedTodos.length && onEmpty()}
-			<TodoListComponent>{searchedTodos.map(content)}</TodoListComponent>
+			{!loading && <TodoListComponent>{searchedTodos.map(content)}</TodoListComponent>}
 		</Section>
 	);
 };

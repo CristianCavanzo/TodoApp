@@ -4,6 +4,19 @@ export function useLocalStorage<T>(itenName: string, initialValue: T[]) {
 	const [item, setItem] = useState(initialValue);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
+	const [sincronizedItem, setSincronizedItem] = useState(true);
+	useEffect(() => {
+		console.log('me llamo');
+		// eslint-disable-next-line no-undef
+		if (globalThis.window) {
+			window.addEventListener('storage', (change) => {
+				if (change.key === 'TODOS_V1') {
+					setSincronizedItem(false);
+				}
+			});
+		}
+	}, [sincronizedItem]);
+
 	useEffect(() => {
 		// eslint-disable-next-line no-undef
 		if (globalThis.window) {
@@ -16,15 +29,22 @@ export function useLocalStorage<T>(itenName: string, initialValue: T[]) {
 						localStorage.setItem(itenName, JSON.stringify([]));
 						parsedItem = initialValue;
 					}
+
 					setItem(parsedItem);
 					setLoading(false);
+					setSincronizedItem(true);
 				}, time);
 			} catch {
 				setLoading(false);
 				setError(true);
 			}
 		}
-	}, []);
+	}, [loading]);
+
+	const sincronize = () => {
+		setLoading(true);
+		setSincronizedItem(false);
+	};
 
 	const saveItem = (newItem: T[]) => {
 		localStorage.setItem(itenName, JSON.stringify(newItem));
@@ -37,5 +57,5 @@ export function useLocalStorage<T>(itenName: string, initialValue: T[]) {
 		saveItem(parsedItem);
 	};
 
-	return { item, saveItem, loading, error, createItem };
+	return { item, saveItem, loading, error, createItem, sincronize, sincronizedItem };
 }

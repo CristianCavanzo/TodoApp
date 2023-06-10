@@ -13,6 +13,8 @@ import { TodoForm } from '@components/Home/TodoForm';
 import { TodoHeader } from '@components/Home/TodoHeader';
 import { useTodos } from '@hooks/useTodos';
 import { Todos } from '@types';
+import { ChangeAlertWithStorageListener } from '@components/Home/ChangeAlert';
+
 const Home = () => {
 	const {
 		error,
@@ -27,6 +29,8 @@ const Home = () => {
 		completedTodos,
 		totalTodos,
 		createItem,
+		sincronize,
+		sincronizedItem,
 	} = useTodos();
 
 	return (
@@ -73,6 +77,7 @@ const Home = () => {
 					<TodoForm handleModal={handleModal} createItem={createItem} />
 				</Modal>
 			)}
+			<ChangeAlertWithStorageListener sincronizedItem={sincronizedItem} sincronize={sincronize} />
 		</>
 	);
 };

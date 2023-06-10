@@ -9,12 +9,14 @@ interface Context {
 	loading: boolean;
 	error: boolean;
 	openModal: boolean;
+	sincronizedItem: boolean;
 	/* eslint-disable no-unused-vars */
 	handleSearch: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	completeTodo: (id: number) => void;
 	deleteTodo: (id: number) => void;
 	handleModal: () => void;
 	createItem: (newItem: unknown) => void;
+	sincronize: () => void;
 	/* eslint-enable no-unused-vars */
 }
 
@@ -28,6 +30,8 @@ const useTodos = (): Context => {
 		loading,
 		error,
 		createItem,
+		sincronize,
+		sincronizedItem,
 	} = useLocalStorage(nameTodos, initialValue);
 
 	const [search, setSearch] = useState('');
@@ -75,6 +79,8 @@ const useTodos = (): Context => {
 		openModal,
 		handleModal,
 		createItem,
+		sincronize,
+		sincronizedItem,
 	};
 };
 
