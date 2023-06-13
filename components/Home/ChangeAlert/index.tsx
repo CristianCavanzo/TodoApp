@@ -1,14 +1,15 @@
 import React from 'react';
-import { WithStorageListener } from './withStorageListener';
 
 const ChangeAlert = ({
 	sincronize,
 	sincronizedItem,
+	loading,
 }: {
 	sincronize: () => void;
 	sincronizedItem: boolean;
+	loading: boolean;
 }) => {
-	if (!sincronizedItem) {
+	if (!sincronizedItem && !loading) {
 		return (
 			<div>
 				<p>Hubo cambios</p>
@@ -19,6 +20,4 @@ const ChangeAlert = ({
 	return <></>;
 };
 
-const ChangeAlertWithStorageListener = WithStorageListener(ChangeAlert);
-
-export { ChangeAlertWithStorageListener };
+export { ChangeAlert };

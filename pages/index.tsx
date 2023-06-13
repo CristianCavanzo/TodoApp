@@ -13,7 +13,7 @@ import { TodoForm } from '@components/Home/TodoForm';
 import { TodoHeader } from '@components/Home/TodoHeader';
 import { useTodos } from '@hooks/useTodos';
 import { Todos } from '@types';
-import { ChangeAlertWithStorageListener } from '@components/Home/ChangeAlert';
+import { ChangeAlert } from '@components/Home/ChangeAlert';
 
 const Home = () => {
 	const {
@@ -77,7 +77,7 @@ const Home = () => {
 					<TodoForm handleModal={handleModal} createItem={createItem} />
 				</Modal>
 			)}
-			<ChangeAlertWithStorageListener sincronizedItem={sincronizedItem} sincronize={sincronize} />
+			<ChangeAlert loading={loading} sincronizedItem={sincronizedItem} sincronize={sincronize} />
 		</>
 	);
 };
