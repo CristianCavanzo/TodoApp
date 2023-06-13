@@ -2,22 +2,26 @@ import { useLocalStorage } from '@hooks/useLocalStorage';
 import { Todos } from '@types';
 import React, { useState } from 'react';
 interface Context {
-	search: string;
-	totalTodos: number;
-	completedTodos: number;
-	searchedTodos: Todos[];
-	loading: boolean;
-	error: boolean;
-	openModal: boolean;
-	sincronizedItem: boolean;
-	/* eslint-disable no-unused-vars */
-	handleSearch: (event: React.ChangeEvent<HTMLInputElement>) => void;
-	completeTodo: (id: number) => void;
-	deleteTodo: (id: number) => void;
-	handleModal: () => void;
-	createItem: (newItem: unknown) => void;
-	sincronize: () => void;
-	/* eslint-enable no-unused-vars */
+	state: {
+		search: string;
+		totalTodos: number;
+		completedTodos: number;
+		searchedTodos: Todos[];
+		loading: boolean;
+		error: boolean;
+		openModal: boolean;
+		sincronizedItem: boolean;
+	};
+	stateUpdaters: {
+		/* eslint-disable no-unused-vars */
+		handleSearch: (event: React.ChangeEvent<HTMLInputElement>) => void;
+		completeTodo: (id: number) => void;
+		deleteTodo: (id: number) => void;
+		handleModal: () => void;
+		createItem: (newItem: unknown) => void;
+		sincronize: () => void;
+		/* eslint-enable no-unused-vars */
+	};
 }
 
 const useTodos = (): Context => {
@@ -66,21 +70,29 @@ const useTodos = (): Context => {
 		saveTodos(newTodos);
 	};
 
-	return {
+	const state = {
 		loading,
 		error,
-		handleSearch,
 		completedTodos,
 		totalTodos,
 		searchedTodos,
-		completeTodo,
-		deleteTodo,
 		search,
 		openModal,
+		sincronizedItem,
+	};
+
+	const stateUpdaters = {
+		handleSearch,
+		completeTodo,
+		deleteTodo,
 		handleModal,
 		createItem,
 		sincronize,
-		sincronizedItem,
+	};
+
+	return {
+		state,
+		stateUpdaters,
 	};
 };
 

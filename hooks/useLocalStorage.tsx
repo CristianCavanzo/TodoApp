@@ -17,7 +17,7 @@ interface Reducer<T> {
 	};
 }
 
-const initialState = ({ initialValue }) => ({
+const initialState = <T,>(initialValue: T) => ({
 	item: initialValue,
 	loading: true,
 	error: false,
@@ -53,8 +53,9 @@ const reducerObject = <T,>(state: T, payload: any) => ({
 
 const reducer = <T,>(state: Reducer<T>['state'], action: Reducer<T>['action']) =>
 	reducerObject(state, action.payload)[action.type] || state;
+
 export function useLocalStorage<T>(itenName: string, initialValue: T[]) {
-	const [state, dispatch] = useReducer(reducer, initialState({ initialValue }));
+	const [state, dispatch] = useReducer(reducer<T[]>, initialState(initialValue));
 	const { item, loading, error, sincronizedItem } = state;
 	const onError = (e) => {
 		dispatch({

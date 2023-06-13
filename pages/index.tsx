@@ -16,22 +16,20 @@ import { Todos } from '@types';
 import { ChangeAlert } from '@components/Home/ChangeAlert';
 
 const Home = () => {
+	const { state, stateUpdaters } = useTodos();
 	const {
-		error,
 		loading,
+		error,
 		searchedTodos,
-		completeTodo,
-		deleteTodo,
-		openModal,
-		handleModal,
-		handleSearch,
 		search,
 		completedTodos,
 		totalTodos,
-		createItem,
-		sincronize,
+		openModal,
 		sincronizedItem,
-	} = useTodos();
+	} = state;
+
+	const { completeTodo, deleteTodo, handleModal, handleSearch, createItem, sincronize } =
+		stateUpdaters;
 
 	return (
 		<>
