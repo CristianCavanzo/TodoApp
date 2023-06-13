@@ -1,17 +1,96 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer } from 'react';
 
+interface State<T> {
+	item: T;
+	loading: boolean;
+	error: boolean;
+	sincronizedItem: boolean;
+}
+
+type actionTypes = 'ERROR' | 'SUCCESS' | 'SAVE' | 'SINCRONIZE' | 'SINCRONIZED';
+
+interface Reducer<T> {
+	state: State<T>;
+	action: {
+		type: actionTypes;
+		payload?: any;
+	};
+}
+
+const initialState = ({ initialValue }) => ({
+	item: initialValue,
+	loading: true,
+	error: false,
+	sincronizedItem: true,
+});
+
+const reducerObject = <T,>(state: T, payload: any) => ({
+	ERROR: {
+		...state,
+		error: true,
+	},
+	SUCCESS: {
+		...state,
+		error: false,
+		loading: false,
+		sincronizedItem: true,
+		item: payload,
+	},
+	SINCRONIZE: {
+		...state,
+		sincronizedItem: false,
+		loading: true,
+	},
+	SINCRONIZED: {
+		...state,
+		sincronizedItem: false,
+	},
+	SAVE: {
+		...state,
+		item: payload,
+	},
+});
+
+const reducer = <T,>(state: Reducer<T>['state'], action: Reducer<T>['action']) =>
+	reducerObject(state, action.payload)[action.type] || state;
 export function useLocalStorage<T>(itenName: string, initialValue: T[]) {
-	const [item, setItem] = useState(initialValue);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(false);
-	const [sincronizedItem, setSincronizedItem] = useState(true);
+	const [state, dispatch] = useReducer(reducer, initialState({ initialValue }));
+	const { item, loading, error, sincronizedItem } = state;
+	const onError = (e) => {
+		dispatch({
+			type: 'ERROR',
+			payload: e,
+		});
+	};
+	const onSuccess = (parsedItem) => {
+		dispatch({
+			type: 'SUCCESS',
+			payload: parsedItem,
+		});
+	};
+	const onSave = (newItem) => {
+		dispatch({
+			type: 'SAVE',
+			payload: newItem,
+		});
+	};
+	const onSincronize = () => {
+		dispatch({
+			type: 'SINCRONIZE',
+		});
+	};
+	const onSincronized = () => {
+		dispatch({
+			type: 'SINCRONIZED',
+		});
+	};
+
 	useEffect(() => {
-		console.log('me llamo');
 		// eslint-disable-next-line no-undef
 		if (globalThis.window) {
 			window.addEventListener('storage', (change) => {
 				if (change.key === 'TODOS_V1') {
-					setSincronizedItem(false);
+					onSincronized();
 				}
 			});
 		}
@@ -29,26 +108,21 @@ export function useLocalStorage<T>(itenName: string, initialValue: T[]) {
 						localStorage.setItem(itenName, JSON.stringify([]));
 						parsedItem = initialValue;
 					}
-
-					setItem(parsedItem);
-					setLoading(false);
-					setSincronizedItem(true);
+					onSuccess(parsedItem);
 				}, time);
-			} catch {
-				setLoading(false);
-				setError(true);
+			} catch (e) {
+				onError(e);
 			}
 		}
-	}, [loading]);
+	}, []);
 
 	const sincronize = () => {
-		setLoading(true);
-		setSincronizedItem(false);
+		onSincronize();
 	};
 
 	const saveItem = (newItem: T[]) => {
 		localStorage.setItem(itenName, JSON.stringify(newItem));
-		setItem(newItem);
+		onSave(newItem);
 	};
 
 	const createItem = (newItem: T) => {
