@@ -43,3 +43,10 @@ body .list_completed p {
 	align-content: flex-end;
 	justify-content: center;
 }
+.completedTodos {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}

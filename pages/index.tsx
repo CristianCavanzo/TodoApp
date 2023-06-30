@@ -68,7 +68,6 @@ const Home = () => {
 					/>
 				)}
 			</TodoList>
-
 			<CreateTodoButton openModal={handleModal} />
 			{openModal && (
 				<Modal active={openModal}>

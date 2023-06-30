@@ -11,6 +11,7 @@ interface Context {
 		error: boolean;
 		openModal: boolean;
 		sincronizedItem: boolean;
+		completedTask: boolean;
 	};
 	stateUpdaters: {
 		/* eslint-disable no-unused-vars */
@@ -37,6 +38,11 @@ const useTodos = (): Context => {
 		sincronize,
 		sincronizedItem,
 	} = useLocalStorage(nameTodos, initialValue);
+
+	const [state, setState] = useState({
+		search: '',
+		openModal: false,
+	});
 
 	const [search, setSearch] = useState('');
 	const [openModal, setOpenModal] = useState(false);
@@ -70,7 +76,9 @@ const useTodos = (): Context => {
 		saveTodos(newTodos);
 	};
 
-	const state = {
+	const completedTask = completedTodos === totalTodos;
+
+	const stateData = {
 		loading,
 		error,
 		completedTodos,
@@ -79,6 +87,7 @@ const useTodos = (): Context => {
 		search,
 		openModal,
 		sincronizedItem,
+		completedTask,
 	};
 
 	const stateUpdaters = {
@@ -91,7 +100,7 @@ const useTodos = (): Context => {
 	};
 
 	return {
-		state,
+		state: stateData,
 		stateUpdaters,
 	};
 };

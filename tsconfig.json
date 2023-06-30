@@ -22,6 +22,7 @@
 			"@layouts/*": ["./layouts/*"],
 			"@context/*": ["./context/*"],
 			"@font": ["./pages/_app.tsx"],
+			"@animations/*": ["./animations/*"],
 			"@hooks/*": ["./hooks/*"]
 		}
 	},

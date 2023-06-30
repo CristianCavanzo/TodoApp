@@ -57,10 +57,9 @@ const reducer = <T,>(state: Reducer<T>['state'], action: Reducer<T>['action']) =
 export function useLocalStorage<T>(itenName: string, initialValue: T[]) {
 	const [state, dispatch] = useReducer(reducer<T[]>, initialState(initialValue));
 	const { item, loading, error, sincronizedItem } = state;
-	const onError = (e) => {
+	const onError = () => {
 		dispatch({
 			type: 'ERROR',
-			payload: e,
 		});
 	};
 	const onSuccess = (parsedItem) => {
@@ -69,7 +68,7 @@ export function useLocalStorage<T>(itenName: string, initialValue: T[]) {
 			payload: parsedItem,
 		});
 	};
-	const onSave = (newItem) => {
+	const onSave = (newItem: T[]) => {
 		dispatch({
 			type: 'SAVE',
 			payload: newItem,
@@ -112,7 +111,7 @@ export function useLocalStorage<T>(itenName: string, initialValue: T[]) {
 					onSuccess(parsedItem);
 				}, time);
 			} catch (e) {
-				onError(e);
+				onError();
 			}
 		}
 	}, []);
